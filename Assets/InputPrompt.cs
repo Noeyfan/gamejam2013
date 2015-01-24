@@ -4,6 +4,7 @@ using System.Collections;
 public class InputPrompt : MonoBehaviour {
 	public int screenPositionX;
 	public int screenPositionY;
+	public GameObject talkingTo;
 	private string buffer = "";
 	private OutputPrompt output;
 
@@ -24,6 +25,7 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
-		output.content = "Simple echo: " + cmd;
+		var adam = talkingTo.GetComponent<AdamBehavior> ();
+		adam.Talk (cmd);
 	}
 }
