@@ -8,7 +8,7 @@ public class OutputPrompt : MonoBehaviour {
 	private string content = "";
 
 	void OnGUI() {
-		GUI.Label(new Rect(screenPositionX, screenPositionY, Screen.width, 20), content);
+		GUI.Label(new Rect(screenPositionX, screenPositionY, Screen.width, 40), content);
 		GUI.skin.font = font;
 	}
 
