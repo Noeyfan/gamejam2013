@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		walk = false;
+		//walk = false;
 		cursor = GameObject.Find ("Cursor");
 		player = gameObject;
 		cur = Resources.Load ("mf", typeof(Texture2D)) as Texture2D;
