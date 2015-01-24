@@ -26,6 +26,7 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
+		output.SendEvent (talkingTo, cmd);
 		talkingTo.Talk (cmd);
 	}
 }

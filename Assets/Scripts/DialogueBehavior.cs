@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DialogueBehavior : MonoBehaviour {
 	public Rect dialogueRect;
 	public GUIStyle gui_style;
+	public string dialogueName;
 
-	private static DialogueTree dialogue;
+	private static Dictionary<string, DialogueTree> trees = new Dictionary<string, DialogueTree>();
 	private DialogueTree.Node state;
 
 	static DialogueBehavior() {
-		dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what");
+		trees.Add("adam", InitAdamDialogue ());
+	}
+
+	static DialogueTree InitAdamDialogue() {
+		var dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what");
 
 		dialogue.SetNodeContent ("hello", "Hello, world.");
 		dialogue.AddOption ("hello", "Who...who are you?", "I'm");
@@ -36,6 +42,8 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.SetNodeContent ("what", "Whatever. What do we do now?");
 
 		dialogue.Check ();
+
+		return dialogue;
 	}
 
 	void OnGUI() {
@@ -51,7 +59,7 @@ public class DialogueBehavior : MonoBehaviour {
 	}
 
 	void Reset() {
-		state = dialogue.StartNode ();
+		state = trees [dialogueName].StartNode ();
 	}
 
 	void HandleInput() {

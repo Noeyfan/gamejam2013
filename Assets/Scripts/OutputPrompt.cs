@@ -12,7 +12,7 @@ public class OutputPrompt : MonoBehaviour {
 		GUI.skin.font = font;
 	}
 
-	public void SetContent(string c) {
-		content = c;
+	public void SendEvent(DialogueBehavior dia, string cmd) {
+		content = "Narrator: Choose 1). Trust me. ;)";
 	}
 }
