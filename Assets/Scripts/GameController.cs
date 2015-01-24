@@ -6,16 +6,18 @@ public class GameController : MonoBehaviour {
 	private GameObject player;
 	private float movex = 0f;
 	private float movey = 0f;
+	private Texture2D cur;
 
 	public float Speed = 0f;
 	public bool walk;
 
 	// Use this for initialization
 	void Start () {
-		Screen.showCursor = false;
 		walk = false;
 		cursor = GameObject.Find ("Cursor");
 		player = gameObject;
+		cur = Resources.Load ("mf", typeof(Texture2D)) as Texture2D;
+		Cursor.SetCursor (cur, new Vector2 (0, 0), CursorMode.Auto);
 	}
 
 	void FixedUpdate () {
