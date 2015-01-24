@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AdamBehavior : MonoBehaviour {
+public class DialogueBehavior : MonoBehaviour {
 	public Rect dialogueRect;
 
 	private static DialogueTree dialogue;
 	private DialogueTree.Node state;
 
-	static AdamBehavior() {
+	static DialogueBehavior() {
 		dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what");
 
 		dialogue.SetNodeContent ("hello", "Hello, world.");
