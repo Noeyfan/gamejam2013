@@ -69,7 +69,10 @@ public class DialogueBehavior : MonoBehaviour {
 	}
 
 	public void Talk(string content) {
-		int choice = System.Convert.ToInt32(content);
-		state = state.Next (choice-1);
+		try {
+			int choice = System.Convert.ToInt32(content);
+			state = state.Next (choice-1);
+		} catch {
+		}
 	}
 }
