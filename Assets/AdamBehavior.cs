@@ -8,7 +8,7 @@ public class AdamBehavior : MonoBehaviour {
 	private DialogueTree.Node state;
 
 	static AdamBehavior() {
-		dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "what");
+		dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what");
 
 		dialogue.SetNodeContent ("hello", "Hello, world.");
 		dialogue.AddOption ("hello", "Who...who are you?", "I'm");
@@ -27,7 +27,10 @@ public class AdamBehavior : MonoBehaviour {
 
 		dialogue.SetNodeContent ("where", "You don't know? Well... I shouldn't be the one who tells you.");
 		dialogue.AddOption ("where", "Very well. Oh, I can surely smell *regret*, though.", "what");
-		dialogue.AddOption ("where", "I curse you.", "what");
+		dialogue.AddOption ("where", "Damn it. I curse you.", "curse");
+
+		dialogue.SetNodeContent ("curse", "Curse? Hahahahhaha...curse, of course. Obviously I *am* the mostly cursed one. I *am* the one who lost the motality. They call me The Nameless One.");
+		dialogue.AddOption ("curse", "Oh, you are The Nameless One! The one who never dies!", "what");
 
 		dialogue.SetNodeContent ("what", "Whatever. What do we do now?");
 
