@@ -7,7 +7,6 @@ public class InputPrompt : MonoBehaviour {
 	public DialogueBehavior talkingTo;
 	private OutputPrompt output;
 	private string buffer = "";
-	public Font font;
 	public GUIStyle gui_style;
 
 	void Start() {
@@ -20,7 +19,6 @@ public class InputPrompt : MonoBehaviour {
 			eval(buffer);
 			buffer = "";
 		}
-		//guiText.font = font;
 		buffer = GUI.TextField (new Rect (screenPositionX, screenPositionY, Screen.width, 20), buffer, gui_style);
 	}
 	
