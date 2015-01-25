@@ -10,6 +10,9 @@ public class DialogueBehavior : MonoBehaviour {
 	private static Dictionary<string, DialogueTree> trees = new Dictionary<string, DialogueTree>();
 	private DialogueTree.Node state;
 
+	private bool activated = false;
+	private OutputPrompt output;
+
 	static DialogueBehavior() {
 		trees.Add("adam", InitAdamDialogue ());
 	}
@@ -36,7 +39,7 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.AddOption ("where", "Very well. Oh, I can surely smell *regret*, though.", "what");
 		dialogue.AddOption ("where", "Damn it. I curse you.", "curse");
 
-		dialogue.SetNodeContent ("curse", "Curse? Hahahahhaha...curse, of course. Obviously I *am* the mostly cursed one. I *am* the one who lost the motality. They call me The Nameless One.");
+		dialogue.SetNodeContent ("curse", "Curse? Hahahahaha...cursed, of course. Obviously I *am* the mostly cursed one.\nI *am* the one who lost the motality. They call me The Nameless One.");
 		dialogue.AddOption ("curse", "Oh, you are The Nameless One! The one who never dies!", "what");
 
 		dialogue.SetNodeContent ("what", "Whatever. What do we do now?");
@@ -47,11 +50,15 @@ public class DialogueBehavior : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		if (!activated) {
+			return;
+		}
 		GUI.Label(dialogueRect, state.ToString(), gui_style);
 	}
 
 	void Start () {
 		Reset();
+		output = GameObject.Find ("OutputPrompt").GetComponent<OutputPrompt> ();
 	}
 
 	void Update() {
@@ -69,10 +76,27 @@ public class DialogueBehavior : MonoBehaviour {
 	}
 
 	public void Talk(string content) {
+		if (!activated) {
+			return;
+		}
 		try {
 			int choice = System.Convert.ToInt32(content);
 			state = state.Next (choice-1);
+			output.OnTalkState (this);
 		} catch {
 		}
+	}
+
+	public void Activate() {
+		activated = true;
+		Reset ();
+	}
+
+	public void Deactivate() {
+		activated = false;
+	}
+
+	public bool InState(string s) {
+		return state.name == s;
 	}
 }

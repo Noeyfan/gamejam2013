@@ -4,7 +4,7 @@ using System.Collections;
 public class InputPrompt : MonoBehaviour {
 	public int screenPositionX;
 	public int screenPositionY;
-	public DialogueBehavior talkingTo;
+	private DialogueBehavior talkingTo;
 	private OutputPrompt output;
 	private string buffer = "";
 	public GUIStyle gui_style;
@@ -24,6 +24,7 @@ public class InputPrompt : MonoBehaviour {
 			if (e.isKey && e.keyCode == KeyCode.I && justSwitched) {
 				justSwitched = false;
 				buffer = "";
+				output.SendEvent("EnterCommandLine");
 			}
 			if (e.isKey && e.keyCode == KeyCode.Return) {
 				eval(buffer);
@@ -31,6 +32,8 @@ public class InputPrompt : MonoBehaviour {
 			}
 			if (e.isKey && e.keyCode == KeyCode.Escape) {
 				GUI.FocusControl("main");
+				output.SendEvent("BackToNormal");
+				buffer = "";
 			}
 		} else {
 			if (Input.GetKey(KeyCode.I)) {
@@ -44,7 +47,22 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
-		output.SendEvent (talkingTo, cmd);
-		talkingTo.Talk (cmd);
+		output.SendEvent (cmd);
+		if (talkingTo != null) {
+			talkingTo.Talk (cmd);
+		}
+	}
+
+	public void SetTalkTo(string name) {
+		if (talkingTo != null) {
+			talkingTo.Deactivate();
+		}
+
+		try {
+			talkingTo = GameObject.Find (name).GetComponent<DialogueBehavior> ();
+			talkingTo.Activate ();
+		} catch {
+			output.SendEvent("Oops: " + name + " not found");
+		}
 	}
 }
