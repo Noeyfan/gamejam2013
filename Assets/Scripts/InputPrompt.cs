@@ -49,12 +49,9 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
-
+		output.SendEvent (cmd);
 		if (talkingTo != null) {
-			output.SendEvent("");
 			talkingTo.Talk (cmd);
-		} else {
-			output.SendEvent (cmd);
 		}
 	}
 
