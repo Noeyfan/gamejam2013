@@ -22,7 +22,9 @@ public class OutputPrompt : MonoBehaviour {
 		if (d.InState ("I'm")) {
 			content = "He lies.";
 		} else if (d.InState ("you")) {
-			content = "Press 'esc' and try to find some clue around";
+			content = "Try typing `key` command to get some keys and prepare for trying and fail!";
+		} else if (d.InState ("where")) {
+			content = "Well... You can call it \"Fortress of Regrets\". Don't ask me why this name.";
 		}
 	}
 
@@ -45,7 +47,7 @@ public class OutputPrompt : MonoBehaviour {
 		} else if (cmd == "BackToNormal") {
 			if (worldState["NeverBackToNormal"]) {
 				worldState["NeverBackToNormal"] = false;
-				content = "Try typing `key` command get some keys and prepare for trying and fail!";
+				content = "Try typing `talk adam` command to talk to the one in front of you.";
 			}
 		} else if (cmd.StartsWith("talk ")) {
 			var target = cmd.Substring("talk ".Length);
