@@ -27,7 +27,7 @@ public class level1Controller : MonoBehaviour {
 	}
 
 	public void dropBox() {
-		Instantiate(box, gameObject.transform.position, Quaternion.identity);
+		Instantiate(box, GameObject.FindGameObjectWithTag("Player").transform.position, Quaternion.identity);
 	}
 
 	public void shootBullet() {
