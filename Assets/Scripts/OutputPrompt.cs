@@ -21,6 +21,8 @@ public class OutputPrompt : MonoBehaviour {
 	public void OnTalkState(DialogueBehavior d) {
 		if (d.InState ("I'm")) {
 			content = "He lies.";
+		} else if (d.InState ("you")) {
+			content = "Press 'esc' and try to find some clue around";
 		}
 	}
 
@@ -43,10 +45,8 @@ public class OutputPrompt : MonoBehaviour {
 		} else if (cmd == "BackToNormal") {
 			if (worldState["NeverBackToNormal"]) {
 				worldState["NeverBackToNormal"] = false;
-				content = "Try typing `help` in command line mode";
+				content = "Try typing `talk adam` to talk to Adam, the one in front of you.";
 			}
-		} else if (cmd == "help") {
-			content = "Commands: talk `name`";
 		} else if (cmd.StartsWith("talk ")) {
 			var target = cmd.Substring("talk ".Length);
 			target = target.ToLower();
