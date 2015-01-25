@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class DialogueBehavior : MonoBehaviour {
+	public float rectOffsetX, rectOffsetY;
 	public Rect dialogueRect;
 	public GUIStyle gui_style;
 	public string dialogueName;
@@ -100,7 +101,11 @@ public class DialogueBehavior : MonoBehaviour {
 		if (!activated) {
 			return;
 		}
-		GUI.Label(dialogueRect, state.ToString(), gui_style);
+		Debug.Log (rectOffsetX);
+		Debug.Log (rectOffsetY);
+		Debug.Log (Input.mousePosition.x);
+		Debug.Log (Input.mousePosition.y);
+		GUI.Label(new Rect(rectOffsetX, Screen.height-rectOffsetY, dialogueRect.width, dialogueRect.height), state.ToString(), gui_style);
 	}
 
 	void Start () {
