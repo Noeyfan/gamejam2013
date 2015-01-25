@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour {
 
 	public float Speed = 0f;
 	public bool walk;
+	public GameObject front;
+	public GameObject left;
+	public GameObject back;
+	public GameObject right;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +32,33 @@ public class GameController : MonoBehaviour {
 			movey = Input.GetAxis ("Vertical");
 			player.rigidbody2D.velocity = new Vector2 (movex * Speed, movey * Speed);
 		}
-	}
+		if (Input.GetKey (KeyCode.W)) {
+			left.SetActive(false);
+			right.SetActive(false);
+			back.SetActive(true);
+			front.SetActive(false);
+		} else if (Input.GetKey (KeyCode.A)) {
+			right.SetActive(false);
+			left.SetActive(true);
+			back.SetActive(false);
+			front.SetActive(false);
+				} else if (Input.GetKey (KeyCode.S)) {
+			right.SetActive(false);
+			left.SetActive(false);
+			back.SetActive(false);
+			front.SetActive(true);
+				} else if (Input.GetKey (KeyCode.D)) {
+			right.SetActive(true);
+			left.SetActive(false);
+			back.SetActive(false);
+			front.SetActive(false);
+		} else {
+			right.SetActive(false);
+			left.SetActive(false);
+			back.SetActive(false);
+			front.SetActive(true);
+				}
+		}
 
 	void EnableWalk() {
 		walk = true;
@@ -61,6 +91,7 @@ public class GameController : MonoBehaviour {
 	public int WichKey() {
 		return key;
 	}
+
 	// Update is called once per frame
 	void Update () {
 		//cursor.transform.position = (Input.mousePosition - new Vector3(Screen.width/2f, Screen.height/2f, 0)) / 100;
