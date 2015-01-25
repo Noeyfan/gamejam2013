@@ -25,7 +25,6 @@ public class OutputPrompt : MonoBehaviour {
 	}
 
 	public void SendEvent(string cmd) {
-		content = cmd;
 		if (cmd == "pwd") {
 			content = "/dev/mem";
 		} else if (cmd == "ls") {
@@ -50,7 +49,10 @@ public class OutputPrompt : MonoBehaviour {
 			content = "Commands: talk `name`";
 		} else if (cmd.StartsWith("talk ")) {
 			var target = cmd.Substring("talk ".Length);
+			target = target.ToLower();
 			GameObject.Find("InputPrompt").GetComponent<InputPrompt>().SetTalkTo(target);
+		} else {
+			content = cmd;
 		}
 	}
 
