@@ -93,4 +93,11 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		//cursor.transform.position = (Input.mousePosition - new Vector3(Screen.width/2f, Screen.height/2f, 0)) / 100;
 	}
+
+	void OnTriggerEnter2D(Collider2D c) {
+		if(c.gameObject.tag == "Bullet") {
+			print("push player");
+			rigidbody2D.AddForce(-gameObject.transform.right * 2000);
+		}
+	}
 }
