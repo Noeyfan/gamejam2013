@@ -45,12 +45,19 @@ public class OutputPrompt : MonoBehaviour {
 		} else if (cmd == "BackToNormal") {
 			if (worldState["NeverBackToNormal"]) {
 				worldState["NeverBackToNormal"] = false;
-				content = "Try typing `talk adam` to talk to Adam, the one in front of you.";
+				content = "Try typing `key` command get some keys and prepare for trying and fail!";
 			}
 		} else if (cmd.StartsWith("talk ")) {
 			var target = cmd.Substring("talk ".Length);
 			target = target.ToLower();
 			GameObject.Find("InputPrompt").GetComponent<InputPrompt>().SetTalkTo(target);
+		} else if (cmd == "key") {
+			var l = GameObject.Find("Level1");
+			if (l == null) {
+				return;
+			}
+			l.GetComponent<level1Controller>().dropKey();
+			content = "Only one key opens the lock. You may not have more than one key though!";
 		} else {
 			content = cmd;
 		}
