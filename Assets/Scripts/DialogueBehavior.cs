@@ -88,7 +88,7 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.AddOption ("game", "They are both the same age.", "game fail");
 		dialogue.AddOption ("game", "I surely don't know.", "game fail");
 		
-		dialogue.SetNodeContent ("game fail", "Sigh. Very well, you can't be freed. Time is not your enemy, forever is.");
+		dialogue.SetNodeContent ("game fail", "[Sigh] Well, you can't be freed. Time is not your enemy, forever is.");
 		
 		dialogue.SetNodeContent ("game succ", "Oh finally, you are freed. That is to say, it's a free(NULL). Congratulations!");
 
