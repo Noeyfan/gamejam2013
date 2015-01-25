@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//walk = false;
+		//print (Application.loadedLevelName);
 		key = -1;
 		cursor = GameObject.Find ("Cursor");
 		player = gameObject;
@@ -29,36 +30,36 @@ public class GameController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if(walk) {
-			movex = Input.GetAxis ("Horizontal");
-			movey = Input.GetAxis ("Vertical");
-			player.rigidbody2D.velocity = new Vector2 (movex * Speed, movey * Speed);
-		}
-		if (Input.GetKey (KeyCode.W)) {
-			left.SetActive(false);
-			right.SetActive(false);
-			back.SetActive(true);
-			front.SetActive(false);
-		} else if (Input.GetKey (KeyCode.A)) {
-			right.SetActive(false);
-			left.SetActive(true);
-			back.SetActive(false);
-			front.SetActive(false);
-				} else if (Input.GetKey (KeyCode.S)) {
-			right.SetActive(false);
-			left.SetActive(false);
-			back.SetActive(false);
-			front.SetActive(true);
-				} else if (Input.GetKey (KeyCode.D)) {
-			right.SetActive(true);
-			left.SetActive(false);
-			back.SetActive(false);
-			front.SetActive(false);
-		} else {
-			right.SetActive(false);
-			left.SetActive(false);
-			back.SetActive(false);
-			front.SetActive(true);
+				if (walk) {
+						movex = Input.GetAxis ("Horizontal");
+						movey = Input.GetAxis ("Vertical");
+						player.rigidbody2D.velocity = new Vector2 (movex * Speed, movey * Speed);
+						if (Input.GetKey (KeyCode.W)) {
+								left.SetActive (false);
+								right.SetActive (false);
+								back.SetActive (true);
+								front.SetActive (false);
+						} else if (Input.GetKey (KeyCode.A)) {
+								right.SetActive (false);
+								left.SetActive (true);
+								back.SetActive (false);
+								front.SetActive (false);
+						} else if (Input.GetKey (KeyCode.S)) {
+								right.SetActive (false);
+								left.SetActive (false);
+								back.SetActive (false);
+								front.SetActive (true);
+						} else if (Input.GetKey (KeyCode.D)) {
+								right.SetActive (true);
+								left.SetActive (false);
+								back.SetActive (false);
+								front.SetActive (false);
+						} else {
+								right.SetActive (false);
+								left.SetActive (false);
+								back.SetActive (false);
+								front.SetActive (true);
+						}
 				}
 		}
 
@@ -94,11 +95,15 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//cursor.transform.position = (Input.mousePosition - new Vector3(Screen.width/2f, Screen.height/2f, 0)) / 100;
-		LoseWeight ();
-		if(calory > 3000) {
-			gameObject.transform.localScale = new Vector3(.3f,.3f,.3f);
+		//LoseWeight ();
+		//if(calory > 3000) {
+		gameObject.transform.localScale = new Vector3(.3f,.3f,.3f);
+		if(Application.loadedLevelName == "scene2") {
+			float step = 5 * Time.deltaTime;
+			gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position ,new Vector3(1.65f, -1.1f, 0),step );
 		}
-		print (GetCurrentCal());
+		//}
+		//print (GetCurrentCal());
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {

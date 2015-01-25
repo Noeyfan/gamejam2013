@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class OutputPrompt : MonoBehaviour {
 	public int screenPositionX;
 	public int screenPositionY;
-	public Font font;
+	//public Font font;
+	public GUIStyle gui_style;
 	private string content = "Hello there! I am The Narrator. Please press 'i' to enter *command line mode*.";
 	
 	private Dictionary<string, bool> worldState = new Dictionary<string, bool>() {
@@ -14,8 +15,8 @@ public class OutputPrompt : MonoBehaviour {
 	};
 
 	void OnGUI() {
-		GUI.Label(new Rect(screenPositionX, screenPositionY, Screen.width, 40), content);
-		GUI.skin.font = font;
+		GUI.Label(new Rect(screenPositionX, screenPositionY, Screen.width, 40), content, gui_style);
+		//GUI.skin.font = font;
 	}
 
 	public void OnTalkState(DialogueBehavior d) {
