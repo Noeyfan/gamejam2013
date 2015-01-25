@@ -15,6 +15,7 @@ public class lockController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D c) {
 		if(c.gameObject.tag == "Player") {
+			print(c.gameObject.GetComponent<GameController>().WichKey());
 			if(c.gameObject.GetComponent<GameController>().WichKey() == locknumb) {
 				Destroy(gameObject);
 			}

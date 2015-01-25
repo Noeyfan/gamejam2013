@@ -69,24 +69,21 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void GetKey(string s) {
-		switch(s) {
-		case "key1":
-			key = 1;
-			break;
-		case "key2":
-			key = 2;
-			break;
-		case "key3":
-			key = 3;
-			break;
-		case "key4":
-			key = 4;
-			break;
-		case "key5":
-			key = 5;
-			break;
+				switch (s) {
+		case "key1(Clone)":
+						key = 1;
+						break;
+		case "key2(Clone)":
+						key = 2;
+						break;
+		case "key3(Clone)":
+						key = 3;
+						break;
+		case "key4(Clone)":
+						key = 4;
+						break;
+				}
 		}
-	}
 
 	public int WichKey() {
 		return key;
