@@ -10,12 +10,12 @@ public class portalController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		transform.Rotate ((Vector3.forward) * Time.deltaTime * 10);
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {
 		if(c.tag == "Player") {
-			Application.LoadLevel(1);
+			Application.LoadLevel(2);
 		}
 	}
 }

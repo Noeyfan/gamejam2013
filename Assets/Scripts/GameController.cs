@@ -92,6 +92,10 @@ public class GameController : MonoBehaviour {
 		return key;
 	}
 
+	public void PlayGetKey() {
+		audio.Play ();
+	}
+
 	// Update is called once per frame
 	void Update () {
 		//cursor.transform.position = (Input.mousePosition - new Vector3(Screen.width/2f, Screen.height/2f, 0)) / 100;
@@ -109,7 +113,11 @@ public class GameController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D c) {
 		if(c.gameObject.tag == "Bullet") {
 			print("push player");
-			rigidbody2D.AddForce(-gameObject.transform.right * 2000);
+			if(gameObject.transform.position.x <=4.5) {
+				rigidbody2D.AddForce(-gameObject.transform.right * 2000);
+			}else if(gameObject.transform.position.x > 4.5){
+				rigidbody2D.AddForce(gameObject.transform.right * 2000);
+			}
 		}
 	}
 

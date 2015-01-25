@@ -4,8 +4,11 @@ using System.Collections;
 public class level1Controller : MonoBehaviour {
 	private GameObject[] keys;
 	public GameObject bullets;
+	public GameObject box;
+	public GameObject portalDoor;
 	public float bulletinterve;
 	public bool shoot;
+	public bool doorOpen;
 	private float timerecord;
 	// Use this for initialization
 	void Start () {
@@ -23,8 +26,16 @@ public class level1Controller : MonoBehaviour {
 		}
 	}
 
+	public void dropBox() {
+		Instantiate(box);
+	}
+
 	public void shootBullet() {
 		shoot = true;
+	}
+
+	public void openPortalDoor() {
+		portalDoor.SetActive (false);
 	}
 	
 	// Update is called once per frame

@@ -18,6 +18,8 @@ public class keyController : MonoBehaviour {
 		//print ("enter");
 		if(c.tag == "Player") {
 			c.GetComponent<GameController> ().GetKey (gameObject.name);
+			c.GetComponent<GameController> ().PlayGetKey();
+			//gameObject.GetComponent<AudioSource>().Play();
 			Destroy (gameObject);
 			output.SendEvent("You hold " + gameObject.name + " now!");
 		}
