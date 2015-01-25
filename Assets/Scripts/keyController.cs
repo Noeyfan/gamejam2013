@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class keyController : MonoBehaviour {
+	private OutputPrompt output;
 
 	// Use this for initialization
 	void Start () {
-	
+		output = GameObject.Find ("OutputPrompt").GetComponent<OutputPrompt> ();
 	}
 	
 	// Update is called once per frame
@@ -18,6 +19,7 @@ public class keyController : MonoBehaviour {
 		if(c.tag == "Player") {
 			c.GetComponent<GameController> ().GetKey (gameObject.name);
 			Destroy (gameObject);
+			output.SendEvent("You hold " + gameObject.name + " now!");
 		}
 	}
 }

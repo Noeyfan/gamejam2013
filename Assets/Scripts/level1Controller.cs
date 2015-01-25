@@ -10,10 +10,10 @@ public class level1Controller : MonoBehaviour {
 			string keyname = "Keys/key" + i;
 			keys[i-1] = Resources.Load(keyname) as GameObject;
 		}
-		dropKey ();
+		//dropKey ();
 	}
 
-	void dropKey() {
+	public void dropKey() {
 		for(int i = 0; i < keys.Length; i++) {
 			Instantiate(keys[i]);
 		}
