@@ -18,7 +18,13 @@ public class OutputPrompt : MonoBehaviour {
 		GUI.skin.font = font;
 	}
 
-	public void SendEvent(DialogueBehavior dia, string cmd) {
+	public void OnTalkState(DialogueBehavior d) {
+		if (d.InState ("I'm")) {
+			content = "He lies.";
+		}
+	}
+
+	public void SendEvent(string cmd) {
 		content = cmd;
 		if (cmd == "pwd") {
 			content = "/dev/mem";

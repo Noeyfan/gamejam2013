@@ -24,7 +24,7 @@ public class InputPrompt : MonoBehaviour {
 			if (e.isKey && e.keyCode == KeyCode.I && justSwitched) {
 				justSwitched = false;
 				buffer = "";
-				output.SendEvent(null, "EnterCommandLine");
+				output.SendEvent("EnterCommandLine");
 			}
 			if (e.isKey && e.keyCode == KeyCode.Return) {
 				eval(buffer);
@@ -32,7 +32,8 @@ public class InputPrompt : MonoBehaviour {
 			}
 			if (e.isKey && e.keyCode == KeyCode.Escape) {
 				GUI.FocusControl("main");
-				output.SendEvent(null, "BackToNormal");
+				output.SendEvent("BackToNormal");
+				buffer = "";
 			}
 		} else {
 			if (Input.GetKey(KeyCode.I)) {
@@ -46,7 +47,7 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
-		output.SendEvent (talkingTo, cmd);
+		output.SendEvent (cmd);
 		if (talkingTo != null) {
 			talkingTo.Talk (cmd);
 		}
@@ -61,7 +62,7 @@ public class InputPrompt : MonoBehaviour {
 			talkingTo = GameObject.Find (name).GetComponent<DialogueBehavior> ();
 			talkingTo.Activate ();
 		} catch {
-			output.SendEvent(null, "Oops: " + name + " not found");
+			output.SendEvent("Oops: " + name + " not found");
 		}
 	}
 }
