@@ -5,7 +5,7 @@ public class level1Controller : MonoBehaviour {
 	private GameObject[] keys;
 	public GameObject bullets;
 	public GameObject box;
-	public GameObject portalDoor;
+	public GameObject portal;
 	public float bulletinterve;
 	public bool shoot;
 	public bool doorOpen;
@@ -27,7 +27,7 @@ public class level1Controller : MonoBehaviour {
 	}
 
 	public void dropBox() {
-		Instantiate(box);
+		Instantiate(box, gameObject.transform.position, Quaternion.identity);
 	}
 
 	public void shootBullet() {
@@ -35,7 +35,8 @@ public class level1Controller : MonoBehaviour {
 	}
 
 	public void openPortalDoor() {
-		portalDoor.SetActive (false);
+		//portalDoor.SetActive (false);
+		Instantiate(portal);
 	}
 	
 	// Update is called once per frame
