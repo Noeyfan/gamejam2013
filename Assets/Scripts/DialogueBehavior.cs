@@ -40,39 +40,30 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.AddOption ("where", "Very well. Oh, I can surely smell *regret*, though.", "what");
 		dialogue.AddOption ("where", "Damn it. I curse you.", "curse");
 
-		dialogue.SetNodeContent ("curse", "Curse? Hahahahahaha...cursed, of course. Obviously I *am* the mostly cursed one.\n"+
-		                         "I *am* the one who lost the motality. They call me... never mind.");
+		dialogue.SetNodeContent ("curse", "Curse? Hahahahahaha...cursed, of course. Obviously I *am* the mostly cursed one. I *am* the one who lost the motality. They call me... never mind.");
 		dialogue.AddOption ("curse", "Waaaait, the one who lost its motality! You can't be...", "what");
 
 		dialogue.SetNodeContent ("what", "Haha, the answer depends on what you *believe*. Whatever.");
 		dialogue.AddOption ("what", "What do we do now?", "you");
 		dialogue.AddOption ("what", "Believe in *what*, then? At least some options?", "believe");
 
-		dialogue.SetNodeContent ("believe", "So many questions, huh? Let *me* ask you first:\n"+
-		                         "What can change the nature of a man?");
+		dialogue.SetNodeContent ("believe", "So many questions, huh? Let *me* ask you first: What can change the nature of a man?");
 		dialogue.AddOption ("believe", "Love.", "answer/love");
 		dialogue.AddOption ("believe", "Death.", "answer/death");
 		dialogue.AddOption ("believe", "Technology.", "answer/tech");
 		dialogue.AddOption ("believe", "I don't like this one. What do we do now?", "you");
 
-		dialogue.SetNodeContent ("answer/love", "Oh really? Currently falling in love with someone?\n"+
-		                         "I'm sorry that it makes you more stupid even than I can imagine,\n"+
-		                         "too stupid to make you agree with me.");
-		dialogue.AddOption ("answer/love", "What?! WTF are...[sigh] maybe you are right. She is a Pointer in Stack,\n"+
-		                    "the other side of Memory world. What do we do now?", "you");
+		dialogue.SetNodeContent ("answer/love", "Oh really? Currently falling in love with someone? I'm sorry that it makes you more stupid even than I can imagine, too stupid to make you agree with me.");
+		dialogue.AddOption ("answer/love", "What?! WTF are...[sigh] maybe you are right. She is a Pointer in Stack, the other side of Memory world. What do we do now?", "you");
 
-		dialogue.SetNodeContent ("answer/death", "Ha! I partially agree with you, but I have to say, some people just *can't* die.\n"+
-		                         "This answer, sadly, means nothing to *them*");
+		dialogue.SetNodeContent ("answer/death", "Ha! I partially agree with you, but I have to say, some people just *can't* die. This answer, sadly, means nothing to *them*");
 		dialogue.AddOption ("answer/death", "You are not speaking about me, are you!? We will see... what do we do now?", "you");
 		dialogue.AddOption ("answer/death", "Yes she can. Ephemeral is her destiny.", "answer/love");
 
-		dialogue.SetNodeContent ("answer/tech", "Ohhhhh, I must live for too long to keep up with the mainstream world now.\n"+
-		                         "So it's called technology huh? Especially, as I heard of, the \"Computer Science\"?\n"+
-		                         "I'm sorry, you may get another correct answer, if it's true that it's this technology that makes you immortal.");
+		dialogue.SetNodeContent ("answer/tech", "Ohhhhh, I must live for too long to keep up with the mainstream world now. So it's called technology huh? Especially, as I heard of, the \"Computer Science\"? I'm sorry, you may get another correct answer, if it's true that it's this technology that makes you immortal.");
 		dialogue.AddOption ("answer/tech", "It's quite different from magic. I like it. I belong to Pointer. I live in BSS Segment in Stack. What do we do now?", "you");
 
-		dialogue.SetNodeContent ("you", "What do *we* do now? No, there's not *we*. There's only you.\n"+
-			                     "Now explore this place until you find something and come to me.");
+		dialogue.SetNodeContent ("you", "What do *we* do now? No, there's not *we*. There's only you. Now explore this place until you find something and come to me.");
 
 		dialogue.Check ();
 
