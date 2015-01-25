@@ -7,6 +7,9 @@ public class DialogueBehavior : MonoBehaviour {
 	public Rect dialogueRect;
 	public GUIStyle gui_style;
 	public string dialogueName;
+	public GameObject dialogueFrame;
+	public GameObject portal;
+	public float talkRange;
 
 	private static Dictionary<string, DialogueTree> trees = new Dictionary<string, DialogueTree>();
 	private DialogueTree.Node state;
@@ -16,11 +19,10 @@ public class DialogueBehavior : MonoBehaviour {
 
 	static DialogueBehavior() {
 		trees.Add("adam1", InitAdam1Dialogue ());
-		trees.Add("adam2", InitAdam2Dialogue ());
 	}
 
 	static DialogueTree InitAdam1Dialogue() {
-		var dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what", "believe", "answer/love", "answer/death", "answer/tech", "you");
+		var dialogue = new DialogueTree ("hello", "I'm", "how", "hmmm", "where", "curse", "what", "believe", "answer/love", "answer/death", "answer/tech", "you", "me", "game", "game fail", "game succ", "end");
 
 		dialogue.SetNodeContent ("hello", "Hello, world.");
 		dialogue.AddOption ("hello", "Who...who are you?", "I'm");
@@ -64,23 +66,13 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.SetNodeContent ("answer/tech", "Ohhhhh, I must live for too long to keep up with the mainstream world now. So it's called technology huh? Especially, as I heard of, the \"Computer Science\"? I'm sorry, you may get another correct answer, if it's true that it's this technology that makes you immortal.");
 		dialogue.AddOption ("answer/tech", "It's quite different from magic. I like it. I belong to Pointer. I live in BSS Segment in Stack. What do we do now?", "you");
 
-		dialogue.SetNodeContent ("you", "What do *we* do now? No, there's not *we*. There's only you. Now explore this place until you find something and come to me.");
-
-		dialogue.Check ();
-
-		return dialogue;
-	}
-
-	static DialogueTree InitAdam2Dialogue() {
-		var dialogue = new DialogueTree ("back", "me", "game", "game fail", "game succ");
-
-		dialogue.SetNodeContent ("back", "Something on your mind?");
-		dialogue.AddOption ("back", "You know about me more than I expected.", "me");
+		dialogue.SetNodeContent ("you", "What do *we* do now? No, there's not *we*, but only you.");
+		dialogue.AddOption ("you", "You sound know about me more than I expected.", "me");
 		
-		dialogue.SetNodeContent ("me", "Of course I know you. You are Null. You are the one that never dies and\nthus can never be freed. As I did.");
-		dialogue.AddOption ("me", "As you did? You never dies? You are...", "game");
+		dialogue.SetNodeContent ("me", "Of course I know you. You are Null. You are the one that never dies and thus can never be freed. As I did.");
+		dialogue.AddOption ("me", "As you did? You are The Nameless...", "game");
 		
-		dialogue.SetNodeContent ("game", "[He interrupted you] Let's play a game. A princess is as old as\nthe prince will be when the princess is twice as old as the prince was whe\nthe princess's age was half the sum\nof their present age. Which of the following, then, could be true?");
+		dialogue.SetNodeContent ("game", "[He interrupted you] Let's do a puzzle. A princess is as old as the prince will be when the princess is twice as old as the prince was whe the princess's age was half the sum of their present age. Which of the following, then, could be true?");
 		dialogue.AddOption ("game", "The prince is 20 and the princess is 30.", "game fail");
 		dialogue.AddOption ("game", "The prince is 40 and the princess is 30.", "game fail");
 		dialogue.AddOption ("game", "The prince is 30 and the princess is 40.", "game succ");
@@ -89,8 +81,12 @@ public class DialogueBehavior : MonoBehaviour {
 		dialogue.AddOption ("game", "I surely don't know.", "game fail");
 		
 		dialogue.SetNodeContent ("game fail", "[Sigh] Well, you can't be freed. Time is not your enemy, forever is.");
+		dialogue.AddOption("game fail", "[end this dialogue]", "end");
 		
 		dialogue.SetNodeContent ("game succ", "Oh finally, you are freed. That is to say, it's a free(NULL). Congratulations!");
+		dialogue.AddOption("game succ", "[end this dialogue]", "end");
+
+		dialogue.SetNodeContent ("end", "");
 
 		dialogue.Check ();
 
@@ -101,10 +97,6 @@ public class DialogueBehavior : MonoBehaviour {
 		if (!activated) {
 			return;
 		}
-		Debug.Log (rectOffsetX);
-		Debug.Log (rectOffsetY);
-		Debug.Log (Input.mousePosition.x);
-		Debug.Log (Input.mousePosition.y);
 		GUI.Label(new Rect(rectOffsetX, Screen.height-rectOffsetY, dialogueRect.width, dialogueRect.height), state.ToString(), gui_style);
 	}
 
@@ -134,6 +126,12 @@ public class DialogueBehavior : MonoBehaviour {
 		try {
 			int choice = System.Convert.ToInt32(content);
 			state = state.Next (choice-1);
+			if (InState("game succ")) {
+				portal.SetActive(true);
+			}
+			if (InState ("end")) {
+				Deactivate();
+			}
 			output.OnTalkState (this);
 		} catch {
 		}
@@ -141,11 +139,13 @@ public class DialogueBehavior : MonoBehaviour {
 
 	public void Activate() {
 		activated = true;
+		dialogueFrame.SetActive (true);
 		Reset ();
 	}
 
 	public void Deactivate() {
 		activated = false;
+		dialogueFrame.SetActive (false);
 	}
 
 	public bool InState(string s) {

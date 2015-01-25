@@ -22,8 +22,6 @@ public class OutputPrompt : MonoBehaviour {
 	public void OnTalkState(DialogueBehavior d) {
 		if (d.InState ("I'm")) {
 			content = "He lies.";
-		} else if (d.InState ("you")) {
-			content = "Try typing `key` command to get some keys and prepare for trying and fail!";
 		} else if (d.InState ("where")) {
 			content = "Well... You can call it \"Fortress of Regrets\". Don't ask me why this name.";
 		}
@@ -48,19 +46,25 @@ public class OutputPrompt : MonoBehaviour {
 		} else if (cmd == "BackToNormal") {
 			if (worldState["NeverBackToNormal"]) {
 				worldState["NeverBackToNormal"] = false;
-				content = "Try typing `talk adam` command to talk to the one in front of you.";
+				content = "Try typing `help` to get available commands.";
 			}
+		} else if (cmd == "help") {
+			content = "commands: `gen key`, `gen box`, `talk {target name}`";
 		} else if (cmd.StartsWith("talk ")) {
 			var target = cmd.Substring("talk ".Length);
 			target = target.ToLower();
 			GameObject.Find("InputPrompt").GetComponent<InputPrompt>().SetTalkTo(target);
-		} else if (cmd == "key") {
+		} else if (cmd.StartsWith("gen ")) {
 			var l = GameObject.Find("Level1");
 			if (l == null) {
 				return;
 			}
-			l.GetComponent<level1Controller>().dropKey();
-			content = "Only one key opens the lock. You may not have more than one key though!";
+			if (cmd == "gen key") {
+				l.GetComponent<level1Controller>().dropKey();
+				content = "Only one key opens the lock. You may not have more than one key though!";
+			} else if (cmd == "gen box") {
+				l.GetComponent<level1Controller>().dropBox();
+			}
 		} else {
 			content = cmd;
 		}

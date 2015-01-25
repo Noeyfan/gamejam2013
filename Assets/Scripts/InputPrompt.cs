@@ -5,6 +5,7 @@ public class InputPrompt : MonoBehaviour {
 	public int screenPositionX;
 	public int screenPositionY;
 	private DialogueBehavior talkingTo;
+	private GameObject player;
 	private OutputPrompt output;
 	private string buffer = "";
 	public GUIStyle gui_style;
@@ -14,6 +15,7 @@ public class InputPrompt : MonoBehaviour {
 	void Start() {
 		GUI.SetNextControlName("main");
 		output = GameObject.Find ("OutputPrompt").GetComponent<OutputPrompt> ();
+		player = GameObject.Find ("player");
 	}
 
 	void OnGUI() {
@@ -47,9 +49,12 @@ public class InputPrompt : MonoBehaviour {
 		if (cmd == "") {
 			return;
 		}
-		output.SendEvent (cmd);
+
 		if (talkingTo != null) {
+			output.SendEvent("");
 			talkingTo.Talk (cmd);
+		} else {
+			output.SendEvent (cmd);
 		}
 	}
 
@@ -59,8 +64,15 @@ public class InputPrompt : MonoBehaviour {
 		}
 
 		try {
-			talkingTo = GameObject.Find (name).GetComponent<DialogueBehavior> ();
-			talkingTo.Activate ();
+			var tar = GameObject.Find (name);
+			talkingTo = tar.GetComponent<DialogueBehavior> ();
+			Debug.Log ((player.transform.position - tar.transform.position).magnitude);
+			if ((player.transform.position - tar.transform.position).magnitude <= talkingTo.talkRange) {
+				talkingTo.Activate ();
+				output.SendEvent("");
+			} else {
+				output.SendEvent("Oops: " + name + " is too far away");
+			}
 		} catch {
 			output.SendEvent("Oops: " + name + " not found");
 		}
