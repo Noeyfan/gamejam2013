@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	private float movey = 0f;
 	private Texture2D cur;
 	private int key;
+	private float calory;
 
 	public float Speed = 0f;
 	public bool walk;
@@ -24,6 +25,7 @@ public class GameController : MonoBehaviour {
 		player = gameObject;
 		cur = Resources.Load ("mf", typeof(Texture2D)) as Texture2D;
 		Cursor.SetCursor (cur, new Vector2 (0, 0), CursorMode.Auto);
+		gameObject.transform.localScale = new Vector3(.5f,.5f,.5f);
 	}
 
 	void FixedUpdate () {
@@ -92,6 +94,11 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//cursor.transform.position = (Input.mousePosition - new Vector3(Screen.width/2f, Screen.height/2f, 0)) / 100;
+		LoseWeight ();
+		if(calory > 3000) {
+			gameObject.transform.localScale = new Vector3(.3f,.3f,.3f);
+		}
+		print (GetCurrentCal());
 	}
 
 	void OnTriggerEnter2D(Collider2D c) {
@@ -99,5 +106,15 @@ public class GameController : MonoBehaviour {
 			print("push player");
 			rigidbody2D.AddForce(-gameObject.transform.right * 2000);
 		}
+	}
+
+	void LoseWeight() {
+		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) {
+			calory += 1;
+		}
+	}
+
+	float GetCurrentCal() {
+		return calory;
 	}
 }
